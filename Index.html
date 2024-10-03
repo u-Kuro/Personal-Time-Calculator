@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode Saver Calculator</title>
+    <style>
+        body { 
+            font-family: system-ui, Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            width: 90vw;
+            padding: 16px;
+        }
+        body > * { 
+            width: inherit;
+            height: 60px;
+            border-radius: 16px;
+            outline: none;
+        }
+        input, button {
+            background-color: black;
+            border: 2px solid white;
+            color: inherit;
+            font-size: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Episode Saver Calculator</h2>
+    <input type="datetime-local" id="first-series-date"><br>
+    <input type="datetime-local" id="second-series-date"><br>
+    <h2 id="result"></h2>
+    <script>
+        const firstInputDate = document.getElementById('first-series-date')
+        const secondInputDate = document.getElementById('second-series-date')
+        firstInputDate.onchange = secondInputDate.onchange = () => {
+            const firstDate = new Date(firstInputDate.value);
+            const secondDate = new Date(secondInputDate.value);
+            
+            // Calculate time difference in minutes
+            const timeDifference = Math.abs(secondDate - firstDate) / (1000 * 60); // Convert ms to minutes
+
+            // Calculate episodes to save (ceiling of days * 2)
+            const episodesToSave = Math.ceil((timeDifference / 1440) * 2);
+            
+            // Display result
+            if (
+                typeof(episodesToSave) != "number" || 
+                isNaN(episodesToSave) ||
+                !isFinite(episodesToSave)
+            ) { return }
+            document.getElementById('result').innerText = `Episodes to Save: ${episodesToSave}`;
+        }
+    </script>
+</body>
+</html>
