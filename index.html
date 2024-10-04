@@ -89,7 +89,7 @@
         defaultSecondDate.setHours(18, 30, 0, 0);
         secondInputDate.value = formatDateForInput(defaultSecondDate);
 
-        firstInputDate.onchange = secondInputDate.onchange = () => {
+        const calculate = () => {
             try {
                 const firstDate = new Date(firstInputDate.value);
                 const secondDate = new Date(secondInputDate.value);
@@ -111,6 +111,8 @@
                 document.getElementById('result').innerText = 'Error calculating episodes or saving dates';
             }
         };
+        firstInputDate.onchange = secondInputDate.onchange = calculate
+        calculate()
     </script>
 </body>
 </html>
